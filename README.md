@@ -1,21 +1,24 @@
 # Language Translator(Mobile App)
 
-<p align="left">
+<p align="left"
+     width = "400"
+     height = "300">
     <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen1.jpeg">
-     width = "400"
-     height = "300"
+    
 </p>
 
-<p align="center">
+<p align="center"
+     width = "400"
+     height = "300">
     <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen2.jpeg">
-     width = "400"
-     height = "300"
+ 
 </p>
 
-<p align="right">
-    <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen3.jpeg">
+<p align="right"
      width = "400"
-     height = "300"
+     height = "300">
+    <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen3.jpeg">
+     
 </p>
 
 ## Translates one language to another.
