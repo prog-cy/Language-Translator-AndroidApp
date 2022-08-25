@@ -2,6 +2,6 @@
 
 <p align="center">
     <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/ApplicationImage.png">
-/p>
+</p>
 
-## Translate one language to another.
+## Translates one language to another.
