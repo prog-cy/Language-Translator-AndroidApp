@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CameraActivity">
+
+    <ImageView
+        android:id="@+id/scanImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/todo"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:layout_height="150dp">
+
+        <ScrollView
+            android:id="@+id/scroll2"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/scroll1">
+
+            <TextView
+                android:id="@+id/targetText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:gravity="fill_vertical"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:textColor="#FF0000"
+                android:textSize="20sp" />
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_height="100dp">
+
+        <Button
+            android:id="@+id/scanButton"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:text="@string/scan"
+            android:textSize="15sp"
+            android:layout_marginStart="10dp"/>
+
+        <Button
+            android:id="@+id/detectButton"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:text="@string/detect_text"
+            android:layout_toEndOf="@+id/scanButton"
+            android:textSize="15sp"
+            android:layout_marginStart="50dp"/>
+
+        <Button
+            android:id="@+id/translateText"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:text="@string/need_translation"
+            android:textSize="12sp"
+            android:layout_below="@+id/scanButton"
+            android:layout_marginStart="100dp"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

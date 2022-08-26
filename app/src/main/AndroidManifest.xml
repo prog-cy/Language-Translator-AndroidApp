@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.languagetranslator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +17,9 @@
         android:theme="@style/Theme.LanguageTranslator"
         tools:targetApi="31">
         <activity
+            android:name=".CameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".Splash_Screen"
             android:exported="true">
             <intent-filter>
@@ -22,12 +28,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="false">
 
         </activity>
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
     </application>
 
 </manifest>

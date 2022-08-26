@@ -42,4 +42,7 @@ dependencies {
 
     //Animation
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    //ML kit for Image to text
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.1'
 }

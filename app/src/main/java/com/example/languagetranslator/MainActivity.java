@@ -170,7 +170,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Image to text
+        ImageButton camera = findViewById(R.id.camera);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CameraActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        //Taking data from CamerActivity and putting it into the EditText View source of MainActivity
+        Bundle extrass = getIntent().getExtras();
+        if(extrass != null){
+            String input = extrass.getString("ObjectText");
+            source.setText(input);
+        }
 
     }
 
