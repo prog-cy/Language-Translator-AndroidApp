@@ -1,15 +1,20 @@
 package com.example.languagetranslator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,14 +27,20 @@ import com.google.mlkit.nl.translate.Translation;
 import com.google.mlkit.nl.translate.Translator;
 import com.google.mlkit.nl.translate.TranslatorOptions;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE_SPEECH_INPUT = 100000;
     //Initializing all the views in layout.
     private EditText source;
     private TextView target;
     private Button button;
     private Spinner fromSpinner;
     private Spinner toSpinner;
+
+    private TextToSpeech textToSpeech;
 
     //Languages array data
     String[] fromLanguages = {
@@ -115,6 +126,52 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Resetting the content in TextView and EditText
+        ImageButton reset = findViewById(R.id.resetButton);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                source.setText("");
+                target.setText("");
+            }
+        });
+
+        //Receiving text using microphone
+        ImageButton microPhone = findViewById(R.id.microPhone);
+        microPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speak();
+            }
+        });
+
+        //Converting text into voice.
+        ImageButton speaker = findViewById(R.id.speakButton);
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+
+                // if No error is found then only it will run
+                if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                }
+            }
+        });
+
+        speaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(target.getText().toString().length() == 0)
+                    Toast.makeText(MainActivity.this, "Nothing to speak...", Toast.LENGTH_SHORT).show();
+                else
+                    textToSpeech.speak(target.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+            }
+        });
+
+
+
     }
 
     //Method to translate languages using ML kit
@@ -174,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
                 languageCode = TranslateLanguage.HINDI;
                 break;
             case "Urdu":
+                languageCode = TranslateLanguage.URDU;
+                break;
+            case "Japanese":
                 languageCode = TranslateLanguage.JAPANESE;
                 break;
             case "Arabic":
@@ -213,5 +273,33 @@ public class MainActivity extends AppCompatActivity {
         return languageCode;
 
 
+    }
+
+    //Below these two methods will handle the microphone services.
+    private void speak() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi, Speak something...");
+
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+        }catch (Exception e){
+            Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                source.setText(result.get(0));
+            }
+        }
     }
 }
