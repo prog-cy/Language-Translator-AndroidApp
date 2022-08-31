@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     //permission
     private static  final int REQUEST_CODE = 1;
 
+    private String srcLocale = "";
+    private String trgLocale = "";
+
     private String fromLanguageCode, toLanguageCode;
 
     @Override
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 fromLanguageCode = getLanguageCode(fromLanguages[position]);
+                srcLocale = getLocale(fromLanguages[position]); //This method will set the source language for speak.
             }
 
             @Override
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 toLanguageCode = getLanguageCode(toLanguages[position]);
+                trgLocale = getLocale(toLanguages[position]);
             }
 
             @Override
@@ -142,7 +147,11 @@ public class MainActivity extends AppCompatActivity {
         microPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speak();
+                if(srcLocale.equals(""))
+                    Toast.makeText(MainActivity.this, "Please, select source language", Toast.LENGTH_SHORT).show();
+                else{
+                    speak();
+                }
             }
         });
 
@@ -155,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 // if No error is found then only it will run
                 if(i!=TextToSpeech.ERROR){
                     // To Choose language of speech
-                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.setLanguage(Locale.forLanguageTag(trgLocale));
                 }
             }
         });
@@ -165,8 +174,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(target.getText().toString().length() == 0)
                     Toast.makeText(MainActivity.this, "Nothing to speak...", Toast.LENGTH_SHORT).show();
-                else
+                else{
+                    Toast.makeText(MainActivity.this, "Speaking...", Toast.LENGTH_SHORT).show();
                     textToSpeech.speak(target.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                }
+
             }
         });
 
@@ -289,13 +301,65 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    private String getLocale(String fromLanguage) {
+
+        String  locale = "";
+
+        switch (fromLanguage){
+
+            case "English":
+                locale = "en-IN";
+                break;
+            case "Hindi":
+            case "Urdu":
+                locale = "hi-IN";
+                break;
+            case "Chinese":
+                locale = "yau-HK";
+                break;
+            case "Tamil":
+                locale = "ta-IN";
+                break;
+            case "Japanese":
+                locale = "ja-JP";
+                break;
+            case "Arabic":
+                locale = "ar-XA";
+                break;
+            case "French":
+                locale = "fr-FR";
+                break;
+            case "Spanish":
+                locale = "es-ES";
+                break;
+            case "German":
+                locale = "de-DE";
+                break;
+            case "Italian":
+                locale = "it-IT";
+                break;
+            case "Korean":
+                locale = "ko-KR";
+                break;
+            case "Bengali":
+                locale = "bn-IN";
+                break;
+            case "Russian":
+                locale = "ru-RU";
+                break;
+            default:
+                locale = "";
+        }
+
+        return locale;
+    }
 
     //Below these two methods will handle the microphone services.
     private void speak() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, srcLocale); //I am setting source language in locale at the time of speaking in mike
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi, Speak something...");
 
         try {
