@@ -3,12 +3,17 @@ package com.example.languagetranslator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.languagetranslator.db.HistoryDatabase;
+import com.example.languagetranslator.db.entity.Model;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.mlkit.common.model.DownloadConditions;
@@ -29,6 +36,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private Spinner fromSpinner;
     private Spinner toSpinner;
+    private HistoryDatabase historyDatabase;
 
     private TextToSpeech textToSpeech;
 
@@ -66,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //1-Setting toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Language Translator");
+
+        //Building reference of HistoryDatabase
+        historyDatabase = Room.databaseBuilder(
+                getApplicationContext(),
+                HistoryDatabase.class,
+                "historyDB").allowMainThreadQueries().build();
 
         source = findViewById(R.id.sourceText);
         target = findViewById(R.id.targetText);
@@ -223,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(String s) {
                             target.setText(s);
+                            long insert = historyDatabase.getModelDao().insertWordMeaning(new Model(src, s, 0));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -380,5 +401,25 @@ public class MainActivity extends AppCompatActivity {
                 source.setText(result.get(0));
             }
         }
+    }
+
+    //Setting menu item
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.history, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.history){
+            Intent intent = new Intent(MainActivity.this, History.class);
+            startActivity(intent);
+        }
+
+        return true;
     }
 }
