@@ -15,7 +15,7 @@
     margin = "10"> 
        
 </p>
-<p align = "left">
+<p align = "left" margin = "20">
 	<img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen7.jpeg" width = "250" height = "500"
     	margin = "10">   
 </p>
