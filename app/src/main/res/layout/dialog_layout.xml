@@ -5,18 +5,18 @@
     android:padding="10dp"
     android:layout_height="wrap_content">
 
-    <EditText
+    <TextView
         android:id="@+id/word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:layout_marginStart="10dp"
         android:hint="@string/word"
-        android:inputType="text"
+        android:gravity="fill_vertical"
         android:textColor="#9C27B0"
         android:autofillHints="" />
 
-    <EditText
+    <TextView
         android:id="@+id/meaning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,8 +24,8 @@
         android:layout_marginStart="10dp"
         android:hint="@string/meaning"
         android:layout_below="@+id/word"
-        android:inputType="text"
-        android:textColor="#9C27B0"
+        android:gravity="fill_vertical"
+        android:textColor="#03A9F4"
         android:textSize="15sp"
         tools:ignore="TextFields" />
 

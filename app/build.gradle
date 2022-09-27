@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:5.2.0'
 
     //ML kit for Image to text
-    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.1'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
 
     //Room db dependency
     def room_version = "2.4.3"

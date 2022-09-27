@@ -12,7 +12,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+
+import android.widget.TextView;
 
 import com.example.languagetranslator.adapter.MyAdapter;
 import com.example.languagetranslator.db.HistoryDatabase;
@@ -24,10 +25,10 @@ import java.util.Objects;
 public class History extends AppCompatActivity implements MyAdapter.OnItemClickListener{
 
     private HistoryDatabase historyDatabase;
-    private ArrayList<Model> modelArrayList = new ArrayList<>();
+    private final ArrayList<Model> modelArrayList = new ArrayList<>();
     private MyAdapter adapter;
     private Model refModel;
-    private EditText word, meaning;
+    private TextView word, meaning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
