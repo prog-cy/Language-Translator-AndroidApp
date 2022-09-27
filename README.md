@@ -13,12 +13,14 @@
     margin = "10">    
     <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen6.jpeg" width = "250" height = "500"
     margin = "10"> 
+
+	<p align = "left">
+	<img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen7.jpeg" width = "250" height = "500"
+    	margin = "10">   
+</p>
        
 </p>
-<p align = "left">
-	<img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen7.jpeg" width = "250" height = "500"
-    	margin = "30">   
-</p>
+
 	
 
 ## Translates one language to another.
