@@ -43,9 +43,3 @@ Add below dependencies under (Gradle Script) inside Module Sections.
     margin = "10">    
 
 </p>
-       
-
-
-	
-
-## Translates one language to another.
