@@ -1,5 +1,29 @@
-# Language Translator(Mobile App)
+# Language Translator
 
+An Android Application to translate one language into other.
+
+## Requirements
+- Android Studio
+- JDK(Java Development Key)
+
+## Tech Stack
+
+**Design:** XML(Extensible Markup Language)
+
+**Backend:** Java
+
+**Database:** ROOM Database
+
+**Library:** Google's ML Kit (For Translating Language)
+
+## Dependencies
+Add below dependencies under (Gradle Script) inside Module Sections.
+- implementation 'com.google.mlkit:translate:17.0.1'
+- implementation 'com.airbnb.android:lottie:5.2.0'
+- implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
+
+
+## Screenshots
 <p align="center">
     <img src="https://github.com/prog-cy/Moblie-App-Translator/blob/master/screen1.jpeg" width = "200" height = "400" 
     margin = "10">
