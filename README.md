@@ -4,7 +4,7 @@ An Android Application to translate one language into other.
 
 ## Requirements
 - Android Studio
-- JDK(Java Development Key)
+- JDK(Java Development Ket)
 
 ## Tech Stack
 
